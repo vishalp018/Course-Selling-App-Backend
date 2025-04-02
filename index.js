@@ -3,6 +3,7 @@ const {userRouter}=require("./routes/user");
 const {courseRouter}=require("./routes/course");
 const {adminRouter}=require("./routes/admin");
 require('dotenv').config();
+const mongoose=require("mongoose");
 
 const app=express();
 
