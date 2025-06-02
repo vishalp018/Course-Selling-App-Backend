@@ -1,4 +1,4 @@
-# Course Selling App Backend
+# Course Selling App Backend (console based)
 
 This is a backend application for a course selling platform built using Node.js, Express, and MongoDB. It provides APIs for user and admin functionalities such as authentication, course management, and course purchases. This project does not include a frontend.
 
