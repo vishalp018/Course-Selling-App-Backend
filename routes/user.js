@@ -2,11 +2,13 @@ const { Router } = require("express");
 const express=require("express");
 // const Router =express.Router();
 const userRouter=Router();
-const {userModel}=require("../db")
+const {userModel ,purchaseModel, courseModel}=require("../db")
 const {z}=require("zod");
 const bcrypt=require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {JWT_USER_PASSWORD}=require("../config");
+const { userMiddleware } = require("../Middleware/user");
+
 userRouter.use(express.json());
 
 userRouter.post("/signup",async(req,res)=>{
@@ -74,6 +76,20 @@ userRouter.post("/signin",async(req,res)=>{
             message: "Incorrect credentials"
         })
     }
+})
+
+userRouter.get("/purchases",userMiddleware,async(req,res)=>{
+    const userId=req.userId;
+        const purchases=await purchaseModel.find({
+            userId,
+        })
+        const coursedata=await courseModel.find({
+            _id:purchases.map((x=>x.courseId))
+        })
+        res.json({
+            purchases,
+            coursedata
+        })
 })
 
 module.exports={
