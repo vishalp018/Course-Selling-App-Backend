@@ -4,15 +4,19 @@
   "description": "This is a backend application for a course selling platform built using Node.js, Express, and MongoDB. It provides APIs for user and admin functionalities such as authentication, course management, and course purchases. This project does not include a frontend.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.13.1"
+    "mongoose": "^8.13.1",
+    "zod": "^3.25.49"
   }
 }
