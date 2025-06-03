@@ -1,7 +1,7 @@
 const {Router}=require("express");
 const express=require("express");
 const adminRouter=Router(); 
-const {adminModel}=require("../db")
+const {adminModel, courseModel}=require("../db")
 const {z}=require("zod");
 const bcrypt=require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -80,12 +80,39 @@ adminRouter.post("/signin",async(req,res)=>{
 adminRouter.post("/course",adminMiddleware ,async(req,res)=>{
     const adminId=req.userId;
     const {title,description,price,imageUrl}=req.body;
-    const course=await adminModel.create({
+    const course=await courseModel.create({
         title,price,description,imageUrl,creatorId:adminId
     });
     res.json({
         message:"Course added successfully",
         courseId:course._id
+    })
+})
+
+adminRouter.put("/course",adminMiddleware,async(req,res)=>{
+    const adminId=req.userId;
+    const {title,description,price,imageUrl,courseId}=req.body;
+    const course=await adminModel.updateOne({
+        _id:courseId,
+        creatorId:adminId
+
+    },{
+        title,price,description,imageUrl
+    });
+    res.json({
+        message:"Course updated",
+        courseId:course._id
+    })
+})
+adminRouter.get("/course/bulk",adminMiddleware,async(req,res)=>{
+    const adminId=req.userId;
+    // const {title,description,price,imageUrl,courseId}=req.body;
+    const course=await courseModel.findOne({
+        creatorId:adminId
+    })
+    res.json({
+        message:"Course updated",
+        course
     })
 })
 
