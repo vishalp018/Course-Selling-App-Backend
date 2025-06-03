@@ -6,7 +6,7 @@ const {userModel}=require("../db")
 const {z}=require("zod");
 const bcrypt=require("bcrypt");
 const jwt = require("jsonwebtoken");
-const JWT_USER_PASSWORD="user123";
+const {JWT_USER_PASSWORD}=require("../config");
 userRouter.use(express.json());
 
 userRouter.post("/signup",async(req,res)=>{

@@ -5,7 +5,8 @@ const {adminModel}=require("../db")
 const {z}=require("zod");
 const bcrypt=require("bcrypt");
 const jwt = require("jsonwebtoken");
-const JWT_USER_PASSWORD="admin123";
+const {JWT_ADMIN_PASSWORD}=require("../config");
+const { adminMiddleware } = require("../Middleware/admin");
 adminRouter.use(express.json());
 
 
@@ -64,7 +65,7 @@ adminRouter.post("/signin",async(req,res)=>{
     if (passwordmatch) {
         const token = jwt.sign({
             id: response._id.toString()
-        },JWT_USER_PASSWORD)
+        },JWT_ADMIN_PASSWORD)
 
         res.json({
             token
@@ -74,6 +75,18 @@ adminRouter.post("/signin",async(req,res)=>{
             message: "Incorrect credentials"
         })
     }
+})
+
+adminRouter.post("/course",adminMiddleware ,async(req,res)=>{
+    const adminId=req.userId;
+    const {title,description,price,imageUrl}=req.body;
+    const course=await adminModel.create({
+        title,price,description,imageUrl,creatorId:adminId
+    });
+    res.json({
+        message:"Course added successfully",
+        courseId:course._id
+    })
 })
 
 
