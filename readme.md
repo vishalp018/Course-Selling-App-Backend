@@ -20,8 +20,8 @@ This is a backend application for a course selling platform built using Node.js,
 
 ## Tech Stack
 - **Node.js**: Backend runtime
-- **Express**: Web framework
-- **MongoDB**: Database
+- **Express**: Web framework 
+- **MongoDB**: Database management
 - **jsonwebtoken**: For authentication
 - **dotenv**: For environment variable management
 
