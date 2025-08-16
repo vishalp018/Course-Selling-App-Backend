@@ -8,6 +8,7 @@ This is a backend application for a course selling platform built using Node.js,
 - User Signup
 - User Login
 - View all available courses
+- backend
 - Purchase a course
 - View purchased courses
 
